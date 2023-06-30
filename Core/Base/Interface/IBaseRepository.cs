@@ -17,5 +17,9 @@ namespace Core.Base.Interface
         bool Delete(List<TEntity> entityList);
 
         bool Delete(Expression<Func<TEntity, bool>> where);
+
+        bool Update(TEntity entity);
+
+        bool Update(List<TEntity> entityList);
     }
 }

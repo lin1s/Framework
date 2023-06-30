@@ -122,5 +122,39 @@ namespace Core.Base.Implementation
             return this.Delete(entityList);
         }
 
+        /// <summary>
+        /// 修改数据
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public bool Update(TEntity entity)
+        {
+            _context.Set<TEntity>().Update(entity);
+            int count = _context.SaveChanges();
+            return count == 1 ? true : false;
+        }
+
+        /// <summary>
+        /// 批量修改数据
+        /// </summary>
+        /// <param name="entityList"></param>
+        /// <returns></returns>
+        public bool Update(List<TEntity> entityList)
+        {
+            try
+            {
+                _unitWork.BeginTransaction();
+                _context.Set<TEntity>().UpdateRange(entityList);
+                int count = _context.SaveChanges();
+                bool result = count == entityList.Count ? true : false;
+                _unitWork.CommitTransaction();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _unitWork.RollBackTransaction();
+                return false;
+            }
+        }
     }
 }

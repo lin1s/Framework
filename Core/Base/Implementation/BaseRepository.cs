@@ -1,5 +1,7 @@
 ﻿using Core.Base.DBContext;
 using Core.Base.Interface;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.Linq.Expressions;
 
 namespace Core.Base.Implementation
@@ -156,5 +158,36 @@ namespace Core.Base.Implementation
                 return false;
             }
         }
+
+        public TEntity Find(Expression<Func<TEntity, bool>> where)
+        {
+            return _context.Set<TEntity>().First(where);
+        }
+
+        public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return await _context.Set<TEntity>().FirstAsync(where);
+        }
+
+        public List<TEntity> Select(Expression<Func<TEntity, bool>> where)
+        {
+            return _context.Set<TEntity>().Where(where).ToList();
+        }
+
+        public async Task<List<TEntity>> SelectAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return await _context.Set<TEntity>().Where(where).ToListAsync();
+        }
+
+        public List<TEntity> GetPageList(Expression<Func<TEntity, bool>> where, int pageNumber, int pageSize)
+        {
+            return _context.Set<TEntity>().Where(where).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public async Task<List<TEntity>> GetPageListAsync(Expression<Func<TEntity, bool>> where, int pageNumber, int pageSize)
+        {
+            return await _context.Set<TEntity>().Where(where).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+        }
+
     }
 }

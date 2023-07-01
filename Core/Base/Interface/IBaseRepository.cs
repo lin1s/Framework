@@ -21,5 +21,17 @@ namespace Core.Base.Interface
         bool Update(TEntity entity);
 
         bool Update(List<TEntity> entityList);
+
+        TEntity Find(Expression<Func<TEntity, bool>> where);
+
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> where);
+
+        List<TEntity> Select(Expression<Func<TEntity, bool>> where);
+
+        Task<List<TEntity>> SelectAsync(Expression<Func<TEntity, bool>> where);
+
+        List<TEntity> GetPageList(Expression<Func<TEntity, bool>> where, int pageNumber, int pageSize);
+
+        Task<List<TEntity>> GetPageListAsync(Expression<Func<TEntity, bool>> where, int pageNumber, int pageSize);
     }
 }

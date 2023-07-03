@@ -28,6 +28,7 @@ namespace Api
             });
 
             builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            builder.Services.AddScoped(typeof(IBaseServices<>), typeof(BaseServices<>));
             builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
             foreach (var assemblyName in Assembly.GetExecutingAssembly().GetReferencedAssemblies())

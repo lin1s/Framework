@@ -1,3 +1,5 @@
+using Core.Base.Interface;
+using Entity.TestDbA;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -6,28 +8,21 @@ namespace Api.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        private readonly IBaseRepository<TestTable> _test;
+        private readonly ITestTableServices _test2;
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IBaseRepository<TestTable> test, ITestTableServices test2)
         {
-            _logger = logger;
+            _test = test;
+            _test2 = test2;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet]
+        public IActionResult test1()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var a = _test.Select(x => true);
+            _test2.testa();
+            return new JsonResult(new { code = 200 });
         }
     }
 }

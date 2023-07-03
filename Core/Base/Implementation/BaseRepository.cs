@@ -1,7 +1,6 @@
 ﻿using Core.Base.DBContext;
 using Core.Base.Interface;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 using System.Linq.Expressions;
 
 namespace Core.Base.Implementation
@@ -11,9 +10,10 @@ namespace Core.Base.Implementation
         private readonly IUnitOfWork _unitWork;
         private readonly ApplicationDbContext _context;
 
-        public BaseRepository(IUnitOfWork unitWork)
+        public BaseRepository(IUnitOfWork unitWork, ApplicationDbContext context)
         {
             _unitWork = unitWork;
+            _context = context;
         }
 
         /// <summary>

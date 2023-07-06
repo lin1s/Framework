@@ -1,5 +1,3 @@
-using Core.Base.Interface;
-using Entity.TestDbA;
 using Microsoft.AspNetCore.Mvc;
 using Service.IServices;
 

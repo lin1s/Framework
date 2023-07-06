@@ -10,10 +10,15 @@ namespace Core.Base.Implementation
         private readonly IUnitOfWork _unitWork;
         private readonly ApplicationDbContext _context;
 
-        public BaseRepository(IUnitOfWork unitWork, ApplicationDbContext context)
+        public BaseRepository(IUnitOfWork unitWork)
         {
             _unitWork = unitWork;
-            _context = context;
+
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-LJ93NP5\\SQLEXPRESS;Initial Catalog=TestDb;User ID=sa;Password=sa;TrustServerCertificate=true");
+
+            _context = new ApplicationDbContext(optionsBuilder.Options);
+
         }
 
         /// <summary>

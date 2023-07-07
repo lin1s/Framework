@@ -3,9 +3,7 @@ using Service.IServices;
 
 namespace Api.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : BaseController
     {
         private readonly ITestTableServices _test2;
 

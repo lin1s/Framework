@@ -2,6 +2,7 @@ using Core.Base.DBContext;
 using Core.Base.Implementation;
 using Core.Base.Interface;
 using Core.Base.Interface.Auto_registration;
+using Core.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Reflection;
@@ -20,10 +21,23 @@ namespace Api
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            ConfigHelper.Init(builder.Configuration);
 
             builder.Services.AddDbContext<ApplicationDbContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("TestDbA"));
+                Config config = ConfigHelper.GetBaseConfig();
+                string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "";
+                switch (config.DbType)
+                {
+                    case "1":
+                        option.UseSqlServer(connectionString);
+                        break;
+                    case "2":
+                        option.UseMySQL(connectionString);
+                        break;
+                    default:
+                        break;
+                }
                 option.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
 
@@ -77,7 +91,7 @@ namespace Api
             }
 
             //启动Https路由转换
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 

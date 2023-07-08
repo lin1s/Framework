@@ -1,5 +1,7 @@
 ﻿using Core.Base.DBContext;
 using Core.Base.Interface;
+using Core.Helper;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -15,10 +17,20 @@ namespace Core.Base.Implementation
             _unitWork = unitWork;
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-LJ93NP5\\SQLEXPRESS;Initial Catalog=TestDb;User ID=sa;Password=sa;TrustServerCertificate=true");
-
+            Config config = ConfigHelper.GetBaseConfig();
+            string connectionString = ConfigHelper.GetConnectionString();
+            switch (config.DbType)
+            {
+                case "1":
+                    optionsBuilder.UseSqlServer(connectionString);
+                    break;
+                case "2":
+                    optionsBuilder.UseMySQL(connectionString);
+                    break;
+                default:
+                    break;
+            }
             _context = new ApplicationDbContext(optionsBuilder.Options);
-
         }
 
         /// <summary>

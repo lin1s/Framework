@@ -1,3 +1,4 @@
+using Dto;
 using Microsoft.AspNetCore.Mvc;
 using Service.IServices;
 
@@ -13,7 +14,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult test1()
+        public IActionResult test1(WeatherForecastDto dto)
         {
             _test2.testa();
             return new JsonResult(new { code = 200 });

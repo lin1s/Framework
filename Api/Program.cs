@@ -53,7 +53,7 @@ namespace Api
                 {
                     if (typeof(IScopedInterface).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract)
                     {
-                        //  »ñÈ¡µ±Ç°ÊµÏÖÀàµÄ½Ó¿Ú£¬µ«²»°üº¬ÎÒÃÇµÄ±ê¼ÇÀà
+                        //  è·å–å½“å‰å®ç°ç±»çš„æ¥å£ï¼Œä½†ä¸åŒ…å«æˆ‘ä»¬çš„æ ‡è®°ç±»
                         var interfaceTypes = type.GetInterfaces().Where(p => !p.FullName.Contains("IScopedInterface"));
                         foreach (var interfaceType in interfaceTypes)
                         {
@@ -62,7 +62,7 @@ namespace Api
                     }
                     else if (typeof(ISingletonInterface).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract)
                     {
-                        //  »ñÈ¡µ±Ç°ÊµÏÖÀàµÄ½Ó¿Ú£¬µ«²»°üº¬ÎÒÃÇµÄ±ê¼ÇÀà
+                        //  è·å–å½“å‰å®ç°ç±»çš„æ¥å£ï¼Œä½†ä¸åŒ…å«æˆ‘ä»¬çš„æ ‡è®°ç±»
                         var interfaceTypes = type.GetInterfaces().Where(p => !p.FullName.Contains("ISingletonInterface"));
                         foreach (var interfaceType in interfaceTypes)
                         {
@@ -71,7 +71,7 @@ namespace Api
                     }
                     else if (typeof(ITransientInterface).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract)
                     {
-                        //  »ñÈ¡µ±Ç°ÊµÏÖÀàµÄ½Ó¿Ú£¬µ«²»°üº¬ÎÒÃÇµÄ±ê¼ÇÀà
+                        //  è·å–å½“å‰å®ç°ç±»çš„æ¥å£ï¼Œä½†ä¸åŒ…å«æˆ‘ä»¬çš„æ ‡è®°ç±»
                         var interfaceTypes = type.GetInterfaces().Where(p => !p.FullName.Contains("ITransientInterface"));
                         foreach (var interfaceType in interfaceTypes)
                         {
@@ -90,7 +90,7 @@ namespace Api
                 app.UseSwaggerUI();
             }
 
-            //Æô¶¯HttpsÂ·ÓÉ×ª»»
+            //å¯åŠ¨Httpsè·¯ç”±è½¬æ¢
             //app.UseHttpsRedirection();
 
             app.UseAuthorization();

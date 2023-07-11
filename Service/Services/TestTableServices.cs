@@ -2,6 +2,8 @@
 using Core.Base.Interface;
 using Entity.TestDbA;
 using Service.IServices;
+using System.Linq.Expressions;
+using static Core.Extension.FileName;
 
 namespace Service.Services
 {
@@ -16,7 +18,9 @@ namespace Service.Services
 
         public string testa()
         {
-            var a = _baseRepository.Select(x => true);
+            var expressions = Expressionable.Create<TestTable>().AndIF(true, x => true).ToExpression();
+            var a = _baseRepository.Select(expressions);
+
             return "";
         }
     }
